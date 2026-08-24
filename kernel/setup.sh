@@ -53,11 +53,8 @@ setup_kernelsu() {
     fi
 
     git pull && echo "[+] Repository updated."
-    if [ -z "${1-}" ]; then
-        git checkout "$(git describe --abbrev=0 --tags)" && echo "[-] Checked out latest tag."
-    else
-        git checkout "$1" && echo "[-] Checked out $1." || echo "[-] Checkout default branch"
-    fi
+   git fetch origin dev-susfs
+git checkout -B dev-susfs origin/dev-susfs && echo "[+] Checked out dev-susfs."
     cd "$DRIVER_DIR"
     ln -sf "$(realpath --relative-to="$DRIVER_DIR" "$GKI_ROOT/$REPO/kernel")" "kernelsu" && echo "[+] Symlink created."
 
