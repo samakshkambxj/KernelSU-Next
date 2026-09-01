@@ -478,6 +478,28 @@ private fun SecurityCard(
                 }
             )
 
+            ListItem(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(8.dp))
+                    .clickable { navigator.navigate(com.rifsxd.ksunext.ui.screen.susfs.SuSFSScreenDestination) },
+                colors = ListItemDefaults.colors(containerColor = Color.Transparent),
+                leadingContent = { Icon(Icons.Filled.Security, null) },
+                headlineContent = {
+                    Text(
+                        text = "SUSFS Manager",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                },
+                supportingContent = {
+                    Text(
+                        text = "Manage SUSFS kernel features",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            )
+
             if (Natives.isLkmMode) {
                 UninstallItem(
                     navigator = navigator,

@@ -667,3 +667,28 @@ fun restartApp(packageName: String) {
     forceStopApp(packageName)
     launchApp(packageName)
 }
+
+// SUSFS methods
+fun getSusfsDaemonPath(): String {
+    return getKsuDaemonPath()
+}
+
+fun getSuSFSStatus(): String {
+    val result = Shell.cmd("${getSusfsDaemonPath()} susfs status").exec()
+    return if (result.isSuccess) result.out.joinToString("\n").trim() else "unsupported"
+}
+
+fun getSuSFSVersion(): String {
+    val result = Shell.cmd("${getSusfsDaemonPath()} susfs version").exec()
+    return if (result.isSuccess) result.out.joinToString("\n").trim() else "unknown"
+}
+
+fun getSuSFSFeatures(): String {
+    val result = Shell.cmd("${getSusfsDaemonPath()} susfs features").exec()
+    return if (result.isSuccess) result.out.joinToString("\n") else ""
+}
+
+fun executeSusfsCommand(command: String): Pair<Boolean, String> {
+    val result = Shell.cmd("${getSusfsDaemonPath()} susfs $command").exec()
+    return Pair(result.isSuccess, result.out.joinToString("\n"))
+}
